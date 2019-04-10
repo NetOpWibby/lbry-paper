@@ -10,3 +10,7 @@ Thumbs.db
 .sass-cache
 node_modules
 
+# Build Artifacts
+dist/css
+dist/scripts
+dist/index.html
