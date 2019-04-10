@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title><%= appName %> ∙ <%= appTagline %></title>
+    <base href="/"/>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="author" content="<%= appName %>"/>
+    <meta name="description" content="<%= appTagline %>"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="title" content="<%= appName %>"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <!--/ Social/App Stuff /-->
+    <meta name="apple-mobile-web-app-title" content="<%= appName %>"/>
+    <meta name="application-name" content="<%= appName %>"/>
+    <meta name="socii:site" content="∴ <%= appName %>"/>
+    <meta name="theme-color" content="<%= appColor %>"/>
+
+    <!--/ Open Graph /-->
+    <meta property="og:description" content="<%= appTagline %>"/>
+    <meta property="og:image" content="/og-image.png"/>
+    <meta property="og:image:height" content="<%= ogImageHeight %>"/>
+    <meta property="og:image:width" content="<%= ogImageWidth %>"/>
+    <meta property="og:locale" content="<%= appLocale %>"/>
+    <meta property="og:site_name" content="<%= appName %>"/>
+    <meta property="og:title" content="<%= appName %>"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="/"/>
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+    <link rel="mask-icon" href="/favicon.svg" color="<%= appColor %>"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/bundle.css"/>
+
+    <script src="/plugins/clipboard.js"></script>
+  </head>
+
+  <body>
+    <app></app>
+
+    <noscript>
+      <span><%= appName %> is an SPA (Single Page Application) and requires JavaScript to work, please enable it if you can.</span>
+    </noscript>
+
+    <script src="/scripts/bundle.js"></script>
+  </body>
+</html>

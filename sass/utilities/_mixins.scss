@@ -1,0 +1,321 @@
+@mixin center {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+@mixin clearfix {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Smart font include
+// Simply pass in the font-weight you want to use and the normal/italicized versions will be added
+// No more weighing down the front-end with references to unused weights
+@mixin font-face($font-weight, $relative-font-path, $font-name) {
+  @font-face {
+    font-family: $font-name;
+    font-style: normal;
+    font-weight: $font-weight;
+    src: url("#{$relative-font-path}/#{$font-weight}.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: $font-name;
+    font-style: italic;
+    font-weight: $font-weight;
+    src: url("#{$relative-font-path}/#{$font-weight}i.woff2") format("woff2");
+  }
+}
+
+@mixin font-mono {
+  font-family: "Fira Code", "Input Mono", "Courier New", monospace;
+}
+
+@mixin font-sans {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+@mixin font-serif {
+  font-family: Alegreya, Georgia, serif;
+}
+
+@mixin hide-text {
+  border: none;
+  color: transparent;
+  font: 0 / 0 a;
+  text-shadow: none;
+}
+
+// Cross-browser line-clamp support
+@mixin line-clamp(
+  $element-height: 2rem,
+  $row-count: 2,
+  $fade-color: $lbry-white,
+  $computed-position: relative
+) {
+  height: $element-height;
+  overflow: hidden;
+  position: $computed-position;
+
+  &::after {
+    width: 50%; height: calc(#{$element-height} / #{$row-count});
+    right: 0; bottom: 0;
+
+    background-image: linear-gradient(to right, rgba($lbry-white, 0), #{$fade-color} 80%);
+    content: "";
+    position: absolute;
+  }
+}
+
+@mixin no-user-select {
+  user-select: none;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+@mixin rendered-markdown {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.75rem;
+  }
+
+  h5 {
+    font-size: 1.5rem;
+  }
+
+  h6 {
+    font-size: 1.25rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+  }
+
+  p,
+  ol,
+  ul {
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    &:empty {
+      display: none;
+    }
+
+    code {
+      padding: 0.2rem 0.5rem 0.15rem;
+      top: -1px;
+
+      background-color: $lbry-gray-9;
+      color: $lbry-white;
+      font-size: 0.8rem;
+      position: relative;
+    }
+  }
+
+  ol {
+    counter-reset: counter;
+    list-style-type: none;
+    padding-left: 1.5rem;
+
+    li {
+      position: relative;
+
+      &::before {
+        @include font-mono;
+        width: 1.5rem;
+        top: 0; left: -1.5rem;
+
+        content: counter(counter);
+        counter-increment: counter;
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1.55rem;
+        position: absolute;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: circle;
+  }
+
+  blockquote {
+    font-style: italic;
+    padding-left: 0.75rem;
+    position: relative;
+
+    &::before {
+      width: 3px; height: 100%;
+      top: 0; left: 0;
+
+      background-color: $lbry-gray-4; // TODO: Theme // Make linear-gradient instead
+      content: "";
+      position: absolute;
+    }
+  }
+
+  pre {
+    background-color: $lbry-gray-9;
+    color: $lbry-white;
+    letter-spacing: 0.025rem;
+    line-height: 1.33;
+    overflow-x: scroll;
+    position: relative;
+
+    code {
+      @include font-mono;
+      white-space: pre;
+
+      &[class]::after {
+        padding: 0.2rem 0.5rem;
+        right: 0; bottom: 0;
+
+        background-color: $lbry-white;
+        border-bottom: 1px solid $lbry-gray-9;
+        color: $lbry-gray-9;
+        content: attr(class);
+        font-size: smaller;
+        position: absolute;
+      }
+    }
+  }
+
+  figure {
+    margin-bottom: 1rem;
+    position: relative;
+
+    @media (min-width: 501px) {
+      width: calc((100% + 4.5rem) - 1px);
+      left: calc(-2.6rem + 1px);
+    }
+
+    @media (max-width: 500px) {
+      width: calc((100% + 4.5rem) + 1px);
+      left: calc(-2.6rem - 1px);
+    }
+
+    img {
+      width: 100%; height: 100%; max-height: 500px;
+
+      background-color: $lbry-gray-9;
+      object-fit: contain;
+    }
+  }
+
+  figcaption {
+    @include font-serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.025rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    text-align: center;
+  }
+
+  a:not(.no-style) {
+    color: $lbry-blue-5;
+    white-space: nowrap;
+
+    &:active,
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+      text-decoration-skip: ink;
+
+      -webkit-text-decoration-skip: skip;
+    }
+  }
+}
+
+// Use CSS variables without upsetting Sass-Lint
+// https://github.com/sasstools/sass-lint/issues/1161#issuecomment-390537190
+@mixin root-prop($prop: null, $value: null) {
+  @if ($prop and $value) {
+    #{$prop}: $value;
+  }
+}
+
+@mixin selection($background-color: $lbry-white, $text-color: $lbry-gray-9) {
+  &::selection {
+    background-color: $background-color;
+    color: $text-color;
+    text-shadow: none;
+  }
+
+  &::-moz-selection {
+    background-color: $background-color;
+    color: $text-color;
+    text-shadow: none;
+  }
+}
+
+@mixin shape {
+  &[shape="circle"],
+  &.circle {
+    clip-path: circle(50% at 50% 50%);
+    -webkit-clip-path: circle(50% at 50% 50%);
+  }
+
+  &[shape="diamond"],
+  &.diamond {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    -webkit-clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  // square {} // do nothing
+
+  &[shape="triangle"],
+  &.triangle {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  &[shape="triangle-alt"],
+  &.triangle-alt {
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+}
+
+@mixin underline($text-color: $lbry-gray-9, $lbry-whitespace-color: $lbry-white) {
+  @include selection($text-color, $lbry-whitespace-color);
+
+  background-image: linear-gradient($lbry-whitespace-color, $lbry-whitespace-color), linear-gradient($lbry-whitespace-color, $lbry-whitespace-color), linear-gradient($text-color, $text-color);
+  background-position: 0 88%, 100% 88%, 0 88%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  background-size: 0.05rem 1px, 0.05rem 1px, 1px 1px;
+  box-decoration-break: clone;
+  display: inline;
+  text-decoration: none;
+  text-shadow: 0.03rem 0 $lbry-whitespace-color, -0.03rem 0 $lbry-whitespace-color, 0 0.03rem $lbry-whitespace-color, 0 -0.03rem $lbry-whitespace-color, 0.06rem 0 $lbry-whitespace-color, -0.06rem 0 $lbry-whitespace-color, 0.09rem 0 $lbry-whitespace-color, -0.09rem 0 $lbry-whitespace-color, 0.12rem 0 $lbry-whitespace-color, -0.12rem 0 $lbry-whitespace-color, 0.15rem 0 $lbry-whitespace-color, -0.15rem 0 $lbry-whitespace-color;
+
+  @-moz-document url-prefix() { // sass-lint:disable-line empty-args
+    background-position: 0 90%, 100% 90%, 0 90%;
+  }
+}

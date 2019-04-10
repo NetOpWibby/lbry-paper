@@ -1,0 +1,28 @@
+{
+  env: {
+    browser: true,
+    commonjs: true
+  },
+  extends: "@inc/eslint-config/esnext",
+  parserOptions: {
+    ecmaVersion: 9,
+    sourceType: "module"
+  },
+  plugins: [
+    "react"
+  ],
+  rules: {
+    "no-unused-vars": [
+      error, {
+        varsIgnorePattern: "^m$"
+      }
+    ],
+    "react/jsx-tag-spacing": [
+      error, {
+        afterOpening: "never",
+        beforeClosing: "never",
+        beforeSelfClosing: "never"
+      }
+    ]
+  }
+}

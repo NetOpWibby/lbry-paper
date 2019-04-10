@@ -1,0 +1,118 @@
+html,
+app,
+body, {
+  width: 100%; height: 100%;
+}
+
+app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  @include font-sans;
+  min-width: 320px; min-height: 100vh;
+
+  color: $lbry-black;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+
+    background-color: $lbry-black;
+    content: "";
+    position: fixed;
+    z-index: -1;
+  }
+}
+
+main {
+  @include clearfix;
+  flex: 1;
+  position: relative;
+}
+
+noscript {
+  @include center;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+
+  font-weight: 600;
+  line-height: 1.33;
+  position: fixed;
+  text-align: center;
+  z-index: 50;
+
+  span {
+    padding: 1rem;
+    background-color: $lbry-red-3;
+    color: $lbry-white;
+    font-size: 1rem;
+  }
+}
+
+code {
+  @include font-mono;
+}
+
+
+
+.inner-wrap {
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (max-width: 900px) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  &::after {
+    @include clearfix;
+  }
+}
+
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.heading-title {
+  padding: 0.2rem 1rem;
+
+  background-color: $lbry-black;
+  color: $lbry-white;
+  display: inline-block;
+  letter-spacing: 0.1rem;
+  line-height: 1.33;
+  margin-bottom: 1rem;
+  text-transform: lowercase;
+}
+
+
+
+::selection {
+  background-color: $lbry-yellow-3;
+  color: rgba($lbry-black, 0.95);
+}

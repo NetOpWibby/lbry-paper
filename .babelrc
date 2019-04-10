@@ -1,0 +1,13 @@
+{
+  presets: [
+    "@babel/env"
+  ],
+  plugins: [
+    ["@babel/transform-destructuring", {
+      useBuiltIns: true
+    }],
+    ["@babel/transform-react-jsx", {
+      pragma: "m"
+    }]
+  ]
+}
