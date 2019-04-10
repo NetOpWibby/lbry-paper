@@ -18,7 +18,7 @@ channel {
     color: transparent;
 
     span {
-      .name::after {
+      &.name::after {
         display: none;
       }
     }
