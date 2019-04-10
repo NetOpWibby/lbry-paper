@@ -2,8 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self' filesystem:;
+        connect-src *;
+    "/>
+
     <title><%= appName %> ∙ <%= appTagline %></title>
-    <base href="/"/>
+    <!-- <base href="/"/> -->
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="author" content="<%= appName %>"/>
@@ -20,22 +27,22 @@
 
     <!--/ Open Graph /-->
     <meta property="og:description" content="<%= appTagline %>"/>
-    <meta property="og:image" content="/og-image.png"/>
+    <meta property="og:image" content="<%= workingDirectory %>/og-image.png"/>
     <meta property="og:image:height" content="<%= ogImageHeight %>"/>
     <meta property="og:image:width" content="<%= ogImageWidth %>"/>
     <meta property="og:locale" content="<%= appLocale %>"/>
     <meta property="og:site_name" content="<%= appName %>"/>
     <meta property="og:title" content="<%= appName %>"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="/"/>
+    <!-- <meta property="og:url" content="/"/> -->
 
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
-    <link rel="mask-icon" href="/favicon.svg" color="<%= appColor %>"/>
-    <link rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="stylesheet" href="/css/bundle.css"/>
+    <link rel="apple-touch-icon" href="<%= workingDirectory %>/apple-touch-icon.png"/>
+    <link rel="icon" href="<%= workingDirectory %>/favicon.svg" type="image/svg+xml"/>
+    <link rel="mask-icon" href="<%= workingDirectory %>/favicon.svg" color="<%= appColor %>"/>
+    <link rel="shortcut icon" href="<%= workingDirectory %>/favicon.ico"/>
+    <link rel="stylesheet" href="<%= workingDirectory %>/css/bundle.css"/>
 
-    <script src="/plugins/clipboard.js"></script>
+    <script src="<%= workingDirectory %>/plugins/clipboard.js"></script>
   </head>
 
   <body>
@@ -45,6 +52,6 @@
       <span><%= appName %> is an SPA (Single Page Application) and requires JavaScript to work, please enable it if you can.</span>
     </noscript>
 
-    <script src="/scripts/bundle.js"></script>
+    <script src="<%= workingDirectory %>/scripts/bundle.js"></script>
   </body>
 </html>

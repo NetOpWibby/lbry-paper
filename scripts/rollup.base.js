@@ -10,7 +10,7 @@ import fs from "fs";
 
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
-// import cwd from "cwd";
+import cwd from "cwd";
 import { eslint } from "rollup-plugin-eslint";
 import pathmodify from "rollup-plugin-pathmodify";
 import replace from "rollup-plugin-replace";
@@ -25,19 +25,10 @@ if (!pkg)
   throw("Could not read package.json");
 
 const isProduction = process.env.NODE_ENV !== "development";
-
-// const apiUrl = isProduction ?
-//   "https://api.socii.network" :
-//   "http://localhost:2413";
 const { env } = process;
 const environment = process.env.NODE_ENV || "development";
 const external = Object.keys(pkg.dependencies || {});
 const globals = {};
-// const hubUrl = isProduction ?
-//   "https://hub.socii.network" :
-//   "http://localhost:1881";
-// const icons = fs.readFileSync(cwd() + "/dist/media/svg/icons.svg", "utf8")
-//   .replace("position:absolute", "position: absolute;");
 const input = env.INPUT || "index.js";
 const name = env.NAME || pkg.name;
 
@@ -58,12 +49,12 @@ indexGenerator({
   output: "dist/index.html",
   template: {
     appColor: "#111",
-    // appIcons: icons,
     appLocale: "en_US",
     appName: "LBRY",
     appTagline: "The future of content on the Internet",
     ogImageHeight: "1024",
-    ogImageWidth: "768"
+    ogImageWidth: "768",
+    workingDirectory: cwd() + "/dist"
   }
 });
 
@@ -105,9 +96,7 @@ export const createConfig = ({ includeDepencies }) => ({
 
     replace({
       exclude: "node_modules/**",
-      // API: JSON.stringify(apiUrl),
       ENV: JSON.stringify(environment),
-      // HUB: JSON.stringify(hubUrl),
       PRODUCTION: JSON.stringify(isProduction)
     })
   ]

@@ -15,5 +15,5 @@ const mountNode = document.querySelector("app");
 
 //  P R O G R A M
 
-m.route.prefix(""); // no fugly hash in our URLs
+m.route.prefix("#"); // hash is needed for desktop apps, not for web
 m.route(mountNode, "/", routes);
