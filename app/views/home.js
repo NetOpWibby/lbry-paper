@@ -2,13 +2,10 @@
 
 
 
-// import util from "util";
-// const util = require("util");
-
-//  I M P O R T S
+//  I M P O R T
 
 import m from "mithril";
-const { Lbry } = require("lbry-redux");
+
 // import { Lbry } from "lbry-redux";
 
 //  U T I L S
@@ -16,6 +13,10 @@ const { Lbry } = require("lbry-redux");
 import Trending from "~model/trending";
 import Wrapper from "~component/wrapper";
 import sdkStatus from "~model/sdk-init";
+
+//  P A C K A G E
+
+// const { Lbry } = require("lbry-redux");
 
 // console.log(sdkStatus);
 
@@ -76,67 +77,20 @@ function renderChannelLink(data, fullData) {
   // console.log(fullData[data]);
   // console.log("————————————");
 
-  // resolve(fullData[data]);
-
-
-
-  // check out streaming branch
-  // const test = resolve(fullData[data]);
-
-  // console.log("————————————");
-  // console.log(process.binding("util").getPromiseDetails(test));
-  // console.log("————————————");
-
-  // return test.then(result => {
-  //   console.log(result);
-
-  //   return (
-  //     <channel data-channel-name={channelName}>
-  //       {m.trust(formattedChannelName)}
-  //     </channel>
-  //   );
-  // });
-
-  // return (
-  //   <div>
-  //     {
-  //       test ?
-  //         <channel data-channel-name={channelName}>
-  //           {m.trust(formattedChannelName)}
-  //         </channel> :
-  //         m("div", { style: "color: white; text-align: center;" }, "Waiting for OTHER query to finish...")
-  //     }
-  //   </div>
-  // );
-
-
-
-  // const oop = [];
-
-  // for (const test of fullData[data])
-  //   oop.push(resolveII(test));
-
-  // return (
-  //   <div>
-  //     {
-  //       Promise.all(oop).then(values => {
-  //         console.log(values);
-
-  //         return (
-  //           <channel data-channel-name={channelName}>
-  //             {m.trust(formattedChannelName)}
-  //           </channel>
-  //         );
-  //       })
-  //     }
-  //   </div>
-  // );
-
   return (
-    <channel data-channel-name={channelName}>
-      {m.trust(formattedChannelName)}
+    <channel>
+      <a
+        href={"/channel/" + encodeURIComponent(channelName)}
+        oncreate={m.route.link}
+        title={"Visit " + channelNameSolo + "'s channel"}
+      >
+        {m.trust(formattedChannelName)}
+      </a>
     </channel>
   );
+
+  // onclick={e => console.log(e.srcElement.parentNode.dataset.channelName)}
+  // href={"/channel/" + channelName}
 }
 
 // https://api.lbry.tv/content/claims/house/a05f51fe630f51e2568c329222ffb5e0bea5fb2d/stream

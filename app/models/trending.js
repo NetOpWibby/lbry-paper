@@ -15,7 +15,7 @@ const Trending = {
   loadList: () => {
     return m.request({
       method: "GET",
-      url: "https://api.lbry.com/file/list_homepage"
+      url: "https://api.lbry.com/file/list_homepage" // same as: https://api.lbry.com/discover/list
     }).then(result => {
       const data = result.data.Uris;
       const keys = Object.keys(data);
