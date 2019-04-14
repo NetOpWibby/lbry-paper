@@ -6,32 +6,36 @@
 
 import m from "mithril";
 
+//  P A C K A G E
+
+const { Lbry } = require("lbry-redux");
+
 
 
 //  P R O G R A M
 
 const Resolve = {
   query: suppliedData => {
-    return m.request({
-      data: {
-        authorization: "b5125d5be5ef2b8f3a2fba18a349c8375a85e613",
-        method: "resolve",
-        uri: suppliedData
-      },
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      // url: "https://daemon.lbry.tech/resolve",
-      url: "http://localhost:5200/resolve"
-      // useBody: true
-    }).then(result => {
-      result = result.result[suppliedData];
-      Resolve.result = result;
-    })
+    const id = suppliedData.split("#")[1];
+
+    // curl -d'{"method": "claim_search", "params": {"channel_id": "feb61536c007cdf4faeeaab4876cb397feaf6b51", "page": 1, "page_size": 20}}' http://localhost:5279
+
+    return Lbry.claim_search({ channel_id: id, page: 1, page_size: 20 })
+      .then(result => {
+        // console.info(result);
+
+        /*
+          result
+          result.items
+          result.page
+          result.page_size
+          result.total_pages
+        */
+
+        Resolve.result = result;
+      })
       .catch(error => {
-        console.error(error);
-        return null;
+        console.error(error); // eslint-disable-line no-console
       });
   },
   result: []

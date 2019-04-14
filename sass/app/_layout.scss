@@ -4,6 +4,20 @@ body, {
   width: 100%; height: 100%;
 }
 
+html {
+  &::before {
+    top: 0; left: 0;
+    bottom: 0; right: 0;
+
+    animation: gradientMove 9s ease infinite;
+    background: linear-gradient(314deg, $lbry-teal-2, $lbry-blue-3);
+    background-size: 400%;
+    content: "";
+    position: fixed;
+    transition: background-position 1s ease;
+  }
+}
+
 app {
   min-height: 100vh;
   display: flex;
@@ -21,16 +35,6 @@ body {
   overflow-x: hidden;
   position: relative;
   z-index: 0;
-
-  &::before {
-    top: 0; right: 0;
-    bottom: 0; left: 0;
-
-    background-color: $lbry-black;
-    content: "";
-    position: fixed;
-    z-index: -1;
-  }
 }
 
 main {

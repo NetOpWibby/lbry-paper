@@ -6,7 +6,7 @@
 
 import m from "mithril";
 
-//  U T I L
+//  U T I L S
 
 import Resolve from "~model/resolve";
 import Wrapper from "~component/wrapper";
@@ -18,35 +18,76 @@ import Wrapper from "~component/wrapper";
 export default {
   onmatch: args => Resolve.query(args.channelName),
   render: () => {
-    const creatorData = Resolve.result;
+    // const creatorData = Resolve.result;
 
-    // console.log(creatorData);
-    console.log("Name:", creatorData.certificate.name);
-    console.log("TXID:", creatorData.certificate.txid);
-    console.log("Claims:", creatorData.claims_in_channel);
-    console.log("——————————");
+    // https://tympanus.net/Development/GridLoadingAnimations
+    // Amun / Hapi / Seker
 
-    return m(Wrapper,
-      <section class="ancillary inner-wrap">
-        <p><a href="/">Go home, Roger</a></p>
-      </section>
-    );
+    /*
+      address
+      amount
+      channel_name
+      claim_id
+      effective_amount
+      name
+      normalized_name
+      permanent_url
+      txid
+
+      value.stream.author
+      value.stream.description
+      value.stream.license
+      value.stream.media_type
+      value.stream.thumbnail_url
+      value.stream.title
+    */
+
+    const { result } = Resolve;
+
+    // console.info(result);
+
+    return m(Wrapper,[
+      (
+        <content-list>
+          {
+            result.items.length ?
+              result.items.map(item => renderContent(item)) :
+              m("div", { style: "color: white; text-align: center;" }, "Waiting for content query to finish...")
+          }
+        </content-list>
+      )
+    ]);
   }
-
-  // Lbry.resolve({ urls: url }) // This can be a list of urls
-  //   .then(res => {
-  //     claimData.innerText = JSON.stringify(res[url].claim, null, 2);
-  //   })
-  //   .catch(error => {
-  //     claimData.innerText = JSON.stringify(error, null, 2);
-  // });
-
-  // curl -d'{"method": "channel_list", "params": { account: "bFiP69zpGKXgKVyguvTEfYT1JVKPi85WUp"}}' http://localhost:5279
-
-  // view: () => m(Wrapper,
-  //   <section class="ancillary inner-wrap">
-  //     <img alt="WTF bro" src="/images/what.png"/>
-  //     <p><a href="/">Go home, Roger</a></p>
-  //   </section>
-  // )
 };
+
+
+
+//  H E L P E R
+
+function renderContent(suppliedData) {
+  const { stream } = suppliedData.value;
+
+  // console.log(suppliedData.name);
+  // console.log(suppliedData.claim_id);
+  // console.log("");
+
+  return (
+    <content-item>
+      <a
+        href={"/content/" + encodeURIComponent(suppliedData.name) + "/" + encodeURIComponent(suppliedData.claim_id)}
+        oncreate={m.route.link}
+        title={"View '" + stream.title + "' by " + stream.author}
+      >
+        <figure>
+          <img
+            alt={"'" + stream.title + "' by " + stream.author}
+            src={stream.thumbnail_url}
+          />
+          <figcaption>
+            {stream.title}
+          </figcaption>
+        </figure>
+      </a>
+    </content-item>
+  );
+}

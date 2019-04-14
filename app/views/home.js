@@ -6,19 +6,11 @@
 
 import m from "mithril";
 
-// import { Lbry } from "lbry-redux";
-
 //  U T I L S
 
 import Trending from "~model/trending";
 import Wrapper from "~component/wrapper";
 import sdkStatus from "~model/sdk-init";
-
-//  P A C K A G E
-
-// const { Lbry } = require("lbry-redux");
-
-// console.log(sdkStatus);
 
 
 
@@ -34,7 +26,7 @@ export default {
     const { list } = Trending;
     const channelNames = Object.keys(list);
 
-    return m(Wrapper, { mainClass: "inner-wrap flex-row" }, [
+    return m(Wrapper, { mainClass: "inner-wrap" }, [
       (
         <channels>
           {
@@ -92,10 +84,6 @@ function renderChannelLink(data, fullData) {
   // onclick={e => console.log(e.srcElement.parentNode.dataset.channelName)}
   // href={"/channel/" + channelName}
 }
-
-// https://api.lbry.tv/content/claims/house/a05f51fe630f51e2568c329222ffb5e0bea5fb2d/stream
-// /claims/{claim_name}/{claim_id}/stream
-// You can use that as a `src` tag on `<audio>` or `<video>` elements
 
 function resolveII(suppliedUrl) {
   return m.request({
