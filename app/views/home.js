@@ -8,6 +8,8 @@ import m from "mithril";
 
 //  U T I L S
 
+// import FindStuff from "~model/find";
+// import Resolve from "~model/resolve";
 import Trending from "~model/trending";
 import Wrapper from "~component/wrapper";
 import sdkStatus from "~model/sdk-init";
@@ -60,13 +62,15 @@ export default {
 // claim.value.stream.source
 // contentType (video/mp4)
 
-function renderChannelLink(data, fullData) {
+function renderChannelLink(data) { // , fullData
+  // const channelContent = fullData[data];
   const channelName = data.split("|")[1].trim();
   const channelNameHash = channelName.split("#")[1];
   const channelNameSolo = channelName.split("#")[0];
   const formattedChannelName = `<span class="name">${channelNameSolo.replace("@", "")}</span><span class="hash">#${channelNameHash}</span>`;
 
-  // console.log(fullData[data]);
+  // console.log(data);
+  // console.log(channelContent);
   // console.log("————————————");
 
   return (
@@ -81,60 +85,38 @@ function renderChannelLink(data, fullData) {
     </channel>
   );
 
-  // onclick={e => console.log(e.srcElement.parentNode.dataset.channelName)}
-  // href={"/channel/" + channelName}
+  // {
+  //   Object.keys(channelContent).map(key => {
+  //     const test = channelContent[key];
+  //     return FindStuff(test).then(result => renderChannelThumbnails(result)); // eslint-disable-line padding-line-between-statements
+  //   })
+  // }
 }
 
-function resolveII(suppliedUrl) {
-  return m.request({
-    background: true, // commenting this out is not a good idea...
-    data: {
-      authorization: "b5125d5be5ef2b8f3a2fba18a349c8375a85e613",
-      method: "resolve",
-      uri: suppliedUrl
-    },
-    headers: {
-      "Content-Type": "application/json"
-    },
-    method: "POST",
-    // url: "https://daemon.lbry.tech/resolve",
-    url: "http://localhost:5200/resolve"
-    // useBody: true
-  }).then(result => {
-    result = result.result[suppliedUrl];
-    return result;
-  });
-}
+// function renderChannelThumbnails(suppliedData) {
+//   const { claim } = suppliedData;
+//   const { value } = claim;
 
-function resolve(url) {
-  return Lbry.resolve({ urls: url }) // This can be a list of urls
-    .then(response => {
-      const test = Object.keys(response);
-      const cool = [];
+//   if (!claim || !value)
+//     return;
 
-      // console.log(Object.keys(response));
-
-      for (const uh of test) {
-        const thing = response[uh];
-        const { metadata } = thing.claim.value.stream;
-        // console.log(thing);
-
-        cool.push(`
-          <figure>
-            <img alt=${metadata.title} src=${metadata.thumbnail}/>
-            <figcaption>${metadata.title} by ${metadata.author}</figcaption>
-          </figure>
-        `);
-      }
-
-      // console.log("————————————");
-      // console.log(cool);
-      return cool;
-
-      // claimData.innerText = JSON.stringify(res[url].claim, null, 2);
-    })
-    .catch(error => {
-      console.error(error);
-      // claimData.innerText = JSON.stringify(error, null, 2);
-    });
-}
+//   return (
+//     <content-item>
+//       <a
+//         href={"/content/" + encodeURIComponent(claim.name) + "/" + encodeURIComponent(claim.claim_id)}
+//         oncreate={m.route.link}
+//         title={"View '" + value.title + "' by " + value.author}
+//       >
+//         <figure>
+//           <img
+//             alt={"'" + value.title + "' by " + value.author}
+//             src={value.thumbnail.url}
+//           />
+//           <figcaption>
+//             {value.title}
+//           </figcaption>
+//         </figure>
+//       </a>
+//     </content-item>
+//   );
+// }

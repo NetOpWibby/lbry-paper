@@ -6,8 +6,8 @@ body, {
 
 html {
   &::before {
-    top: 0; left: 0;
-    bottom: 0; right: 0;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
 
     animation: gradientMove 9s ease infinite;
     background: linear-gradient(314deg, $lbry-teal-2, $lbry-blue-3);

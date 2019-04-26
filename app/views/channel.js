@@ -16,7 +16,7 @@ import Wrapper from "~component/wrapper";
 //  E X P O R T
 
 export default {
-  onmatch: args => Resolve.query(args.channelName),
+  onmatch: args => Resolve.query({ channel: args.channelName }),
   render: () => {
     // const creatorData = Resolve.result;
 
@@ -44,9 +44,7 @@ export default {
 
     const { result } = Resolve;
 
-    // console.info(result);
-
-    return m(Wrapper,[
+    return m(Wrapper, [
       (
         <content-list>
           {
@@ -65,7 +63,10 @@ export default {
 //  H E L P E R
 
 function renderContent(suppliedData) {
-  const { stream } = suppliedData.value;
+  const { value } = suppliedData;
+
+  if (!value)
+    return;
 
   // console.log(suppliedData.name);
   // console.log(suppliedData.claim_id);
@@ -76,15 +77,15 @@ function renderContent(suppliedData) {
       <a
         href={"/content/" + encodeURIComponent(suppliedData.name) + "/" + encodeURIComponent(suppliedData.claim_id)}
         oncreate={m.route.link}
-        title={"View '" + stream.title + "' by " + stream.author}
+        title={"View '" + value.title + "' by " + value.author}
       >
         <figure>
           <img
-            alt={"'" + stream.title + "' by " + stream.author}
-            src={stream.thumbnail_url}
+            alt={"'" + value.title + "' by " + value.author}
+            src={value.thumbnail.url}
           />
           <figcaption>
-            {stream.title}
+            {value.title}
           </figcaption>
         </figure>
       </a>

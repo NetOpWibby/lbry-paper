@@ -73,13 +73,9 @@ export default {
     return m(Wrapper, [
       (
         <content>
-          <video src={`https://api.lbry.tv/content/claims/${claimName}/${claimId}/stream`}></video>
+          <video src={`https://api.lbry.tv/content/claims/${claimName}/${claimId}/stream`}/>
         </content>
       )
     ]);
   }
 };
-
-
-
-//  H E L P E R

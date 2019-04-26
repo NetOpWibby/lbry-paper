@@ -16,11 +16,26 @@ const { Lbry } = require("lbry-redux");
 
 const Resolve = {
   query: suppliedData => {
-    const id = suppliedData.split("#")[1];
+    const lbryQuery = {};
+    let method = "resolve";
+
+    if (suppliedData.channel) {
+      const id = suppliedData.channel.split("#")[1];
+
+      lbryQuery.channel_id = id;
+      lbryQuery.page = 1;
+      lbryQuery.page_size = 20;
+
+      method = "claim_search";
+    } else {
+      lbryQuery.urls = suppliedData.urls;
+    }
+
+    // const id = suppliedData.split("#")[1];
 
     // curl -d'{"method": "claim_search", "params": {"channel_id": "feb61536c007cdf4faeeaab4876cb397feaf6b51", "page": 1, "page_size": 20}}' http://localhost:5279
 
-    return Lbry.claim_search({ channel_id: id, page: 1, page_size: 20 })
+    return Lbry[method](lbryQuery)
       .then(result => {
         // console.info(result);
 
@@ -36,6 +51,7 @@ const Resolve = {
       })
       .catch(error => {
         console.error(error); // eslint-disable-line no-console
+        return;
       });
   },
   result: []
