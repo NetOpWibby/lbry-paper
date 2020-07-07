@@ -9,7 +9,7 @@
     "name": "Paul Anthony Webb"
   },
   "dependencies": {
-    "electron": "^5.0.3",
+    "electron": "^9.1.0",
     "find-process": "^1.4.1",
     "got": "^9.6.0",
     "lbry-redux": "lbryio/lbry-redux",
